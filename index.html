@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milla's Digital Command Center</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        header {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1.2em; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); }
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .post-preview {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+        .post-preview h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .post-preview p {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #764ba2; }
+        .btn-secondary {
+            background: #28a745;
+        }
+        .btn-secondary:hover { background: #218838; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .stat {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .skill-list {
+            list-style: none;
+        }
+        .skill-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+        .skill-list li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+        }
+        .trello-links a {
+            display: block;
+            padding: 12px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .trello-links a:hover {
+            background: #e9ecef;
+        }
+        .copy-box {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .copy-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .copy-btn:hover { background: #5a6268; }
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .nav-tab {
+            background: rgba(255,255,255,0.8);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .nav-tab:hover, .nav-tab.active {
+            background: #667eea;
+            color: white;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 Milla's Digital Command Center</h1>
+            <p class="subtitle">30-Day OpenClaw Journey | Content Hub | Skills Library</p>
+        </header>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="showTab('journey')">🎬 OpenClaw Journey</div>
+            <div class="nav-tab" onclick="showTab('content')">📝 Content Library</div>
+            <div class="nav-tab" onclick="showTab('skills')">🔧 Skills (35+)</div>
+            <div class="nav-tab" onclick="showTab('boards')">📋 Trello Boards</div>
+        </div>
+
+        <!-- JOURNEY TAB -->
+        <div id="journey" class="tab-content active">
+            <div class="grid">
+                <div class="card">
+                    <h2>🎯 Sprint Overview</h2>
+                    <p><strong>Goal:</strong> Document 30-day journey with Digital Twin</p>
+                    <p><strong>Target:</strong> 5-10 OpenClaw sales through curiosity & value</p>
+                    <p><strong>Approach:</strong> Document, don't sell</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">30</div>
+                            <div class="stat-label">Days</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">1</div>
+                            <div class="stat-label">Sale So Far</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">1.9k</div>
+                            <div class="stat-label">FB Followers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>📅 Week 1: Foundation (Days 1-7)</h2>
+                    <div class="post-preview">
+                        <h3>Day 1: Meet My Digital Twin</h3>
+                        <p>Introduction post with engagement hook. Ready to publish.</p>
+                        <button class="copy-btn" onclick="copyPost('day1')">Copy Post</button>
+                    </div>
+                    <div class="post-preview">
+                        <h3>Day 2: Behind the Setup</h3>
+                        <p>Show the process of setting up OpenClaw. Coming soon.</p>
+                    </div>
+                    <div class="post-preview">
+                        <h3>Day 3-7: Daily Documentation</h3>
+                        <p>Share wins, challenges, and surprises. Coming soon.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>📅 Week 2: Content Machine</h2>
+                    <p>Creating systems and showing the work. Coming soon.</p>
+                </div>
+
+                <div class="card">
+                    <h2>📅 Week 3: Social Proof</h2>
+                    <p>Leveraging first sale and building momentum. Coming soon.</p>
+                </div>
+
+                <div class="card">
+                    <h2>📅 Week 4: Scale & Close</h2>
+                    <p>Final push and referral strategy. Coming soon.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT TAB -->
+        <div id="content" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h2>📝 Day 1 Post (Ready to Copy)</h2>
+                    <div class="copy-box" id="day1-post">I did something crazy this week.
+
+I hired someone who works 24/7, never sleeps, knows everything about my business, and costs less than my coffee habit.
+
+Except they're not human.
+
+Meet my Digital Twin.
+
+I know, I know. It sounds weird. But here's the thing - I'm 50+, building AI Smart Central, trying to help other entrepreneurs figure out this AI stuff... and I was drowning.
+
+Too many hats. Too little time. Too much to do.
+
+So I built a Digital Twin.
+
+Someone who knows TechStack KC inside and out.
+Someone who remembers every conversation I've ever had.
+Someone who can write, research, organize, and execute while I sleep.
+
+Today my Digital Twin and I mapped out my next 30 days.
+
+In 2 hours, we did what used to take me 2 weeks.
+
+And honestly? I'm still processing what just happened.
+
+Here's my question for you:
+
+If you had a Digital Twin who knew your business inside and out and could handle all the stuff you hate doing...
+
+What would YOU have them do first?
+
+Drop it in the comments. I'm curious.
+
+I'm documenting this whole journey - the wins, the weird moments, the "I can't believe this just happened" stuff.
+
+Because I think every entrepreneur over 50 needs to see what's possible.
+
+This is Day 1.
+
+🔥 if you're watching.</div>
+                    <button class="copy-btn" onclick="copyToClipboard('day1-post')">Copy to Clipboard</button>
+                </div>
+
+                <div class="card">
+                    <h2>📁 All Content Files</h2>
+                    <p>Located in: <code>/root/.openclaw/workspace/content/</code></p>
+                    <ul class="skill-list">
+                        <li>openclaw-journey-day1-engagement.txt</li>
+                        <li>openclaw-journey-day1-post.txt</li>
+                        <li>openclaw-origin-story-post.txt</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SKILLS TAB -->
+        <div id="skills" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h2>🎨 Content Creation</h2>
+                    <ul class="skill-list">
+                        <li>herosection - Hero section copy</li>
+                        <li>email-conversion-engine - Email copywriter</li>
+                        <li>salescopy-skill - Sales page copy</li>
+                        <li>salespage-skill - Long-form sales pages</li>
+                        <li>vsl-skill - Video sales letters</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>🤖 AI Assistants</h2>
+                    <ul class="skill-list">
+                        <li>claude-assistant - Claude AI</li>
+                        <li>openai-assistant - OpenAI GPT</li>
+                        <li>anthropic-assistant - Anthropic Claude</li>
+                        <li>gemini-assistant - Google Gemini</li>
+                        <li>elevenlabs-voice - Voice synthesis</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>💼 Business Tools</h2>
+                    <ul class="skill-list">
+                        <li>coursesprout - Course platform</li>
+                        <li>mintbird - Sales funnels</li>
+                        <li>page-sprout - Landing pages</li>
+                        <li>global-control - CRM</li>
+                        <li>stripe-payments - Payments</li>
+                        <li>square-payments - Payments</li>
+                        <li>paypal-payments - Payments</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>🔧 Productivity</h2>
+                    <ul class="skill-list">
+                        <li>github-repos - GitHub</li>
+                        <li>telegram-bot - Telegram</li>
+                        <li>vercel-deploy - Deployments</li>
+                        <li>trello-boards - Trello</li>
+                        <li>trello-productivity - Trello advanced</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>📧 Communication</h2>
+                    <ul class="skill-list">
+                        <li>gmail-inbox - Gmail</li>
+                        <li>google-forms - Forms</li>
+                        <li>zoom-meetings - Zoom</li>
+                        <li>outlook-calendar - Calendar</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>🎥 Media</h2>
+                    <ul class="skill-list">
+                        <li>youtube-video - YouTube videos</li>
+                        <li>youtube-manager - YouTube channel</li>
+                        <li>google-drive - File storage</li>
+                        <li>google-calendar - Calendar</li>
+                        <li>figma-design - Design</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>💾 Database</h2>
+                    <ul class="skill-list">
+                        <li>supabase-db - Supabase</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2>📊 Stats</h2>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">35+</div>
+                            <div class="stat-label">Total Skills</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Categories</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Ready to Use</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOARDS TAB -->
+        <div id="boards" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <h2>📋 Your Trello Boards</h2>
+                    <div class="trello-links">
+                        <a href="https://trello.com/b/OH81R0Pq/openclaw-operator-kanban" target="_blank">
+                            🔧 OpenClaw Operator Kanban<br>
+                            <small>All your 35+ skills organized alphabetically</small>
+                        </a>
+                        <a href="https://trello.com/b/Llb2kt2N/30-day-openclaw-sales-sprint" target="_blank">
+                            🎬 30-Day Open Claw Journey<br>
+                            <small>Your day-by-day sprint tasks and content</small>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>🔗 Quick Links</h2>
+                    <p><strong>Your Website:</strong> <a href="https://millamc.com">millamc.com</a></p>
+                    <p><strong>This Workspace:</strong> <a href="https://workspace.millamc.com">workspace.millamc.com</a></p>
+                    <p><strong>AI Smart Central:</strong> Coming soon</p>
+                    <p><strong>TechStack KC:</strong> Coming soon</p>
+                </div>
+
+                <div class="card">
+                    <h2>📱 Social Media</h2>
+                    <p><strong>Facebook:</strong> Personal profile (1.9k followers)</p>
+                    <p><strong>eStage:</strong> Mission 1000 platform</p>
+                    <p><strong>Strategy:</strong> Document journey, engage, move to DMs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+
+        function copyPost(day) {
+            copyToClipboard(day + '-post');
+        }
+    </script>
+</body>
+</html>

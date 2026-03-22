@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Milla’s Digital Twin Command Center</title>
+  <style>
+    :root { --bg: #0b0b0f; --panel: #1e1e27; --text: #e0e0e3; --subtext: #a3a3a8; --primary-glow: #b04eff; --secondary-glow: #4dbaff; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{display:flex;height:100vh;background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;}
+    a{color:inherit;text-decoration:none;}
+    /* SIDEBAR */
+    .sidebar{width:240px;background:#000;padding:24px 16px;display:flex;flex-direction:column;}
+    .sidebar h1{font-size:1.3em;color:#fff;text-align:center;text-shadow:0 0 8px var(--primary-glow);}
+    .sidebar small{display:block;text-align:center;margin-top:4px;color:var(--subtext);}
+    .nav-group{margin-top:32px;}
+    .nav-group h4{font-size:0.75em;color:var(--subtext);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;}
+    .nav-item{display:flex;align-items:center;padding:8px 12px;margin-bottom:6px;border-radius:6px;cursor:pointer;transition:background .2s,box-shadow .2s;}
+    .nav-item .emoji{margin-right:8px;}
+    .nav-item:hover{background:rgba(255,255,255,0.05);box-shadow:0 0 8px var(--secondary-glow);}
+    .nav-item.active{background:rgba(176,78,255,0.2);box-shadow:0 0 12px var(--primary-glow);}
+    /* MAIN */
+    .main{flex:1;overflow-y:auto;padding:24px;padding-left:0;max-width:none;margin:0; margin-left:264px;}
+    .section{margin-bottom:32px;display:none;}
+    .section.active{display:block;}
+    h2{font-size:1.5em;color:#fff;margin-bottom:12px;position:relative;}
+    h2::before{content:'';position:absolute;left:0;top:50%;width:4px;height:1.2em;background:var(--primary-glow);transform:translateY(-50%);box-shadow:0 0 10px var(--primary-glow);}
+    .grid{display:grid;gap:20px;}
+    /* Stats */.stats{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
+    .stat{background:var(--panel);border-radius:8px;padding:20px;text-align:center;box-shadow:0 0 12px rgba(0,0,0,0.7),0 0 8px var(--secondary-glow);}
+    .stat .num{font-size:2em;font-weight:bold;color:#fff;text-shadow:0 0 6px var(--primary-glow);} .stat .label{margin-top:6px;color:var(--subtext);}
+    /* Focus */.focus{background:var(--panel);padding:24px;border-radius:8px;box-shadow:0 0 12px rgba(0,0,0,0.7),0 0 10px var(--primary-glow);} .focus-item{margin-bottom:12px;font-size:1em;} .focus-item span{font-weight:bold;color:#fff;}
+    /* Actions */.actions{grid-template-columns:repeat(auto-fit,minmax(120px,1fr));}.action{background:var(--panel);padding:18px 12px;border-radius:8px;text-align:center;font-weight:bold;color:#fff;box-shadow:0 0 8px rgba(0,0,0,0.7);transition:background .2s,box-shadow .2s,transform .2s;}.action:hover{background:rgba(176,78,255,0.2);box-shadow:0 0 12px var(--primary-glow);transform:translateY(-2px);}
+    /* Wins */.wins{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));}.win{background:var(--panel);border-radius:8px;padding:20px;text-align:center;box-shadow:0 0 10px rgba(0,0,0,0.7),0 0 6px var(--secondary-glow);transition:transform .2s;}.win:hover{transform:translateY(-2px);} .win .icon{font-size:1.6em;margin-bottom:8px;text-shadow:0 0 6px var(--secondary-glow);} .win .desc{color:#fff;font-size:0.95em;}
+    /* Card */.card{background:var(--panel);padding:20px;border-radius:8px;box-shadow:0 0 8px rgba(0,0,0,0.7),0 0 6px var(--primary-glow);transition:transform .2s;}.card:hover{transform:translateY(-2px);} .card h3{color:#fff;margin-bottom:10px;text-shadow:0 0 4px var(--primary-glow);} .card .item{margin-bottom:8px;color:var(--subtext);} .card .item span{color:#fff;font-weight:bold;} .card a{display:inline-block;margin-top:12px;font-size:0.9em;color:var(--secondary-glow);text-shadow:0 0 4px var(--secondary-glow);}
+  </style>
+</head>
+<body>
+  <!-- Force fresh load by appending version param -->
+  <script>
+    const version = '9a09249';
+    if(!location.search.includes('v=' + version)) {
+      const base = location.href.split('?')[0];
+      location.replace(base + '?v=' + version);
+    }
+  </script>
+  <aside class="sidebar">
+    <h1>🎯 Milla’s Digital Twin Command Center</h1><small>Dark Mode Hub</small>
+    <div class="nav-group"><h4>Main</h4>
+      <div class="nav-item active" data-target="dashboard"><span class="emoji">📊</span>Dashboard</div>
+      <div class="nav-item" data-target="journey"><span class="emoji">🎬</span>Journey</div>
+      <div class="nav-item" data-target="content"><span class="emoji">📝</span>Content</div>
+      <div class="nav-item" data-target="skills"><span class="emoji">🔧</span>Skills</div>
+    </div>
+    <div class="nav-group"><h4>Workstreams</h4>
+      <div class="nav-item" data-target="projects"><span class="emoji">📁</span>Projects</div>
+      <div class="nav-item" data-target="tasks"><span class="emoji">✔️</span>Tasks</div>
+      <div class="nav-item" data-target="trello"><span class="emoji">📋</span>Trello</div>
+    </div>
+    <div class="nav-group"><h4>Other</h4>
+      <div class="nav-item" data-target="website"><span class="emoji">🌐</span>Website</div>
+      <div class="nav-item" data-target="resources"><span class="emoji">⭐</span>Resources</div>
+      <div class="nav-item" data-target="wins"><span class="emoji">🏆</span>Wins</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section id="dashboard" class="section active">
+      <!-- Stats, Focus, Actions, Wins -->
+      <div class="grid stats">
+        <div class="stat"><div class="num">35</div><div class="label">Skills Built</div></div>
+        <div class="stat"><div class="num">1</div><div class="label">Content Posted</div></div>
+        <div class="stat"><div class="num">3</div><div class="label">Projects Active</div></div>
+        <div class="stat"><div class="num">1</div><div class="label">Sales / Leads</div></div>
+        <div class="stat"><div class="num">12</div><div class="label">Tasks Completed</div></div>
+      </div>
+      <h2>Today’s Focus</h2><div class="focus">
+        <div class="focus-item"><span>Priority:</span> Draft Day 2 Post</div>
+        <div class="focus-item"><span>Project:</span> Digital Twin Journey</div>
+        <div class="focus-item"><span>Next:</span> Write BTS</div>
+        <div class="focus-item"><span>Status:</span> 🔄 In Progress</div>
+      </div>
+      <h2>Quick Actions</h2><div class="grid actions">
+        <div class="action">➕ Add Skill</div>
+        <div class="action">🗂️ Review Content</div>
+        <div class="action">🔗 Open Trello</div>
+        <div class="action">🌐 View Site</div>
+        <div class="action">📋 Tasks</div>
+        <div class="action">🏆 Log Win</div>
+      </div>
+      <h2>Recent Wins &amp; Progress</h2><div class="grid wins">
+        <div class="win"><div class="icon">🏆</div><div class="desc">First Sale</div></div>
+        <div class="win"><div class="icon">✍️</div><div class="desc">Day1 Live</div></div>
+        <div class="win"><div class="icon">🔧</div><div class="desc">35 Skills</div></div>
+        <div class="win"><div class="icon">🚀</div><div class="desc">Board Ready</div></div>
+        <div class="win"><div class="icon">🔓</div><div class="desc">Agency Dashboard Access</div></div>
+      </div>
+    </section>
+    <!-- Other sections hidden by default -->
+    <section id="journey" class="section">
+      <h2>30-Day Journey</h2>
+      <div class="grid" style="grid-template-columns:1fr">
+        <div class="card">
+          <h3>🎬 Week 1: Foundation</h3>
+          <div class="item"><span>Obj:</span> Launch Day1</div>
+          <div class="item"><span>Status:</span> Posted</div>
+          <div class="item"><span>Next:</span> Day2 Post</div>
+          <a href="#">Details →</a>
+        </div>
+        <!-- /card ... add card for each week -->
+      </div>
+    </section>
+    <section id="content" class="section">
+      <h2>Content Library</h2>
+      <!-- content list -->
+    </section>
+    <section id="skills" class="section">
+      <h2>Skills</h2>
+    </section>
+    <section id="projects" class="section">
+      <h2>Projects</h2>
+    </section>
+    <section id="tasks" class="section">
+      <h2>Tasks</h2>
+    </section>
+    <section id="trello" class="section">
+      <h2>Trello Boards</h2>
+    </section>
+    <section id="website" class="section">
+      <h2>Website</h2>
+    </section>
+    <section id="resources" class="section">
+      <h2>Resources</h2>
+    </section>
+    <section id="wins" class="section">
+    <!-- Daily Summary Placeholder -->
+  </section>
+  <section id="daily" class="section">
+    <h2>Daily Summary</h2>
+    <ul style="list-style:disc;padding-left:20px;color:var(--subtext)">
+      <li>Posted Day 1 Digital Twin journey</li>
+      <li>Constrained layout to 1200px width</li>
+      <li>Added “Agency Dashboard Access” to Recent Wins</li>
+      <!-- New items here -->
+    </ul>
+  </section>
+      <h2>All Wins</h2>
+    </section>
+  </main>
+
+  <script>
+    // Sidebar navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        // Highlight
+        document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+        item.classList.add('active');
+        // Show section
+        const target = item.getAttribute('data-target');
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(target).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

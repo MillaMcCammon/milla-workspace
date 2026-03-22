@@ -1,405 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milla's Digital Command Center</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            min-height: 100vh;
-        }
-        
-        /* LEFT SIDEBAR */
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-        }
-        .sidebar h1 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        .sidebar .subtitle {
-            font-size: 0.85em;
-            opacity: 0.9;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        /* NAVIGATION */
-        .nav-section {
-            margin-bottom: 25px;
-        }
-        .nav-section h3 {
-            font-size: 0.75em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.7;
-            margin-bottom: 10px;
-            padding-left: 10px;
-        }
-        .nav-item {
-            display: block;
-            padding: 12px 15px;
-            margin: 5px 0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.95em;
-        }
-        .nav-item:hover, .nav-item.active {
-            background: rgba(255,255,255,0.2);
-        }
-        .nav-item .emoji {
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-        
-        /* MAIN CONTENT AREA */
-        .main-content {
-            margin-left: 280px;
-            flex: 1;
-            padding: 30px;
-            max-width: 1000px;
-        }
-        
-        /* CONTENT CARDS */
-        .content-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .content-card h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-        
-        /* POST STYLING */
-        .post-content {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-size: 1.1em;
-            line-height: 1.8;
-            white-space: pre-wrap;
-        }
-        .copy-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            margin-top: 15px;
-            transition: background 0.3s;
-        }
-        .copy-btn:hover { background: #764ba2; }
-        
-        /* HIDE/SHOW CONTENT */
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        /* STATS */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .stat-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-        }
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-        
-        /* SKILLS LIST */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        .skill-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 3px solid #667eea;
-        }
-        .skill-item strong {
-            color: #667eea;
-        }
-        
-        /* LINKS */
-        .link-list a {
-            display: block;
-            padding: 15px;
-            margin: 10px 0;
-            background: #f8f9fa;
-            border-radius: 8px;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .link-list a:hover {
-            background: #667eea;
-            color: white;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milla's Digital Twin Command Center</title>
+  <style>
+    /* Global Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { display: flex; font-family: 'Segoe UI', Tahoma, sans-serif; background: #1a1a1f; color: #e0e0e3; }
+    a { color: inherit; text-decoration: none; }
+    /* Sidebar */
+    .sidebar { width: 240px; background: linear-gradient(180deg, #5a4db2, #442c68); padding: 20px; height: 100vh; overflow-y: auto; position: fixed; }
+    .sidebar h1 { font-size: 1.4em; margin-bottom: 5px; }
+    .sidebar .sub { font-size: 0.85em; opacity: 0.8; margin-bottom: 20px; }
+    .sidebar nav { margin-top: 20px; }
+    .sidebar .nav-group { margin-bottom: 20px; }
+    .sidebar .nav-group h4 { font-size: 0.7em; text-transform: uppercase; opacity: 0.6; margin-bottom: 8px; }
+    .sidebar .nav-item { padding: 8px 12px; border-radius: 6px; transition: background .2s; display: flex; align-items: center; font-size: 0.95em; }
+    .sidebar .nav-item:hover, .sidebar .nav-item.active { background: rgba(255,255,255,0.1); }
+    .sidebar .nav-item .emoji { margin-right: 8px; }
+    /* Main */
+    .main { margin-left: 240px; padding: 20px; flex: 1; overflow-y: auto; }
+    .section { margin-bottom: 30px; }
+    h2 { font-size: 1.5em; margin-bottom: 15px; color: #ccc; border-left: 4px solid #5a4db2; padding-left: 10px; }
+    .grid { display: grid; gap: 20px; }
+    /* Top Stats */
+    .stats { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    .stat { background: #2a2a35; padding: 20px; border-radius: 10px; text-align: center; }
+    .stat .num { font-size: 1.8em; font-weight: bold; color: #fff; }
+    .stat .label { font-size: 0.9em; opacity: 0.8; margin-top: 5px; }
+    /* Today's Focus */
+    .focus { background: #2a2a35; padding: 20px; border-radius: 10px; }
+    .focus-item { margin-bottom: 10px; }
+    .focus-item span { font-weight: bold; }
+    /* Quick Actions */
+    .actions { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+    .action { background: #3a3a4f; padding: 15px; border-radius: 8px; text-align: center; cursor: pointer; transition: background .2s; }
+    .action:hover { background: #4f4f6b; }
+    /* Weekly Blocks */
+    .week { background: #2a2a35; padding: 20px; border-radius: 10px; }
+    .week h3 { margin-bottom: 10px; }
+    .week-item { margin-bottom: 8px; }
+    .week-item span { font-weight: bold; }
+    /* Recent Wins */
+    .wins { background: #2a2a35; padding: 20px; border-radius: 10px; }
+    .win-item { margin-bottom: 8px; }
+  </style>
 </head>
 <body>
-    <!-- LEFT SIDEBAR -->
-    <div class="sidebar">
-        <h1>🎬 Milla's Command Center</h1>
-        <div class="subtitle">30-Day Digital Twin Journey</div>
-        
-        <div class="nav-section">
-            <h3>Journey</h3>
-            <div class="nav-item active" onclick="showTab('journey')">
-                <span class="emoji">🎬</span> OpenClaw Journey
-            </div>
-            <div class="nav-item" onclick="showTab('content')">
-                <span class="emoji">📝</span> Content Library
-            </div>
-        </div>
-        
-        <div class="nav-section">
-            <h3>Resources</h3>
-            <div class="nav-item" onclick="showTab('skills')">
-                <span class="emoji">🔧</span> Skills (35+)
-            </div>
-            <div class="nav-item" onclick="showTab('boards')">
-                <span class="emoji">📋</span> Trello Boards
-            </div>
-        </div>
-        
-        <div class="nav-section">
-            <h3>Quick Links</h3>
-            <div class="nav-item" onclick="window.open('https://trello.com/b/OH81R0Pq','_blank')">
-                <span class="emoji">📋</span> Skills Board
-            </div>
-            <div class="nav-item" onclick="window.open('https://trello.com/b/Llb2kt2N','_blank')">
-                <span class="emoji">🎬</span> Journey Board
-            </div>
-            <div class="nav-item" onclick="window.open('https://millamc.com','_blank')">
-                <span class="emoji">🌐</span> Your Website
-            </div>
-        </div>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h1>🎥 Milla's Twin Command</h1>
+    <div class="sub">Your Operating Hub</div>
+    <nav>
+      <div class="nav-group">
+        <h4>Main</h4>
+        <div class="nav-item active"><span class="emoji">📊</span>Dashboard</div>
+        <div class="nav-item"><span class="emoji">🎬</span>Journey</div>
+        <div class="nav-item"><span class="emoji">📝</span>Content Library</div>
+        <div class="nav-item"><span class="emoji">🔧</span>Skills</div>
+      </div>
+      <div class="nav-group">
+        <h4>Projects</h4>
+        <div class="nav-item"><span class="emoji">📁</span>Projects</div>
+        <div class="nav-item"><span class="emoji">✔️</span>Tasks</div>
+        <div class="nav-item"><span class="emoji">📋</span>Trello Boards</div>
+      </div>
+      <div class="nav-group">
+        <h4>Links</h4>
+        <div class="nav-item"><span class="emoji">🌐</span>Website</div>
+        <div class="nav-item"><span class="emoji">⭐</span>Resources</div>
+        <div class="nav-item"><span class="emoji">🏆</span>Wins</div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <!-- Top Stats -->
+    <div class="section grid stats">
+      <div class="stat"><div class="num">35</div><div class="label">Skills Built</div></div>
+      <div class="stat"><div class="num">1</div><div class="label">Content Posted</div></div>
+      <div class="stat"><div class="num">1</div><div class="label">Sales / Leads</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Projects Active</div></div>
+      <div class="stat"><div class="num">12</div><div class="label">Tasks Completed</div></div>
     </div>
-    
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
-        
-        <!-- JOURNEY TAB -->
-        <div id="journey" class="tab-content active">
-            <div class="content-card">
-                <h2>🎯 Sprint Overview</h2>
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-number">30</div>
-                        <div class="stat-label">Days</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">1</div>
-                        <div class="stat-label">Sale So Far</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">1.9k</div>
-                        <div class="stat-label">FB Followers</div>
-                    </div>
-                </div>
-                <p><strong>Goal:</strong> Document 30-day journey with Digital Twin</p>
-                <p><strong>Target:</strong> 5-10 OpenClaw sales through curiosity & value</p>
-                <p><strong>Approach:</strong> Document, don't sell</p>
-            </div>
-            
-            <div class="content-card">
-                <h2>📅 Week 1: Foundation (Days 1-7)</h2>
-                <p><strong>Day 1:</strong> Meet My Digital Twin - POSTED ✓</p>
-                <p><strong>Day 2:</strong> Behind the Setup - Coming soon</p>
-                <p><strong>Day 3-7:</strong> Daily documentation - Coming soon</p>
-            </div>
-            
-            <div class="content-card">
-                <h2>📅 Week 2: Content Machine</h2>
-                <p>Creating systems and showing the work - Coming soon</p>
-            </div>
-            
-            <div class="content-card">
-                <h2>📅 Week 3: Social Proof</h2>
-                <p>Leveraging first sale and building momentum - Coming soon</p>
-            </div>
-            
-            <div class="content-card">
-                <h2>📅 Week 4: Scale & Close</h2>
-                <p>Final push and referral strategy - Coming soon</p>
-            </div>
-        </div>
-        
-        <!-- CONTENT LIBRARY TAB -->
-        <div id="content" class="tab-content">
-            <div class="content-card">
-                <h2>📝 Day 1 Post (Ready to Copy)</h2>
-                <div class="post-content" id="day1-post">I did something crazy this week. 🤭
 
-I hired someone who works 24/7, never sleeps, knows everything about my business, and costs less than my daily protein shake.
-
-Except it's not human.
-
-Meet my Digital Twin. 👯‍♀️
-
-I know, I know. It sounds weird. But here's the thing - I'm over 50, I've tried a lot of things online (some worked, some definitely didn't 😬), and I was tired of doing everything myself.
-
-Too much to learn. Too little time. Too many "gurus" selling stuff that doesn't work.
-
-So I built a Digital Twin.
-
-Someone who remembers everything I tell them. 🧠
-Someone who can write, research, organize, and execute while I sleep. 😴
-Someone who actually helps me get stuff done instead of just talking about it. ✅
-
-Today my Digital Twin and I mapped out my next 30 days.
-
-In 2 hours, we did what used to take me 2 weeks.
-
-And honestly? I'm still processing what just happened. 🤯
-
-Here's my question for you:
-
-If you had a Digital Twin who knew your business inside and out and could handle all the stuff you hate doing...
-
-What would YOU have them do first? 🤔
-
-Drop it in the comments. I'm curious. 👇
-
-I'm documenting this whole journey - the wins, the weird moments, the "I can't believe this actually works" stuff.
-
-Because I think people like us - the ones who've been around the block, who've seen the scams, who thought maybe we'd missed the boat on all this tech stuff - need to see what's possible now. 🙌
-
-This is Day 1.
-
-🔥 if you're watching.</div>
-                <button class="copy-btn" onclick="copyToClipboard('day1-post')">📋 Copy to Clipboard</button>
-            </div>
-            
-            <div class="content-card">
-                <h2>📁 All Content Files</h2>
-                <p>Located in: <code>/root/.openclaw/workspace/content/</code></p>
-                <ul style="margin-top: 15px; line-height: 2;">
-                    <li>✅ openclaw-journey-day1-engagement.txt</li>
-                    <li>✅ openclaw-journey-day1-post.txt</li>
-                    <li>✅ openclaw-origin-story-post.txt</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- SKILLS TAB -->
-        <div id="skills" class="tab-content">
-            <div class="content-card">
-                <h2>🔧 Your OpenClaw Skills (35+)</h2>
-                <div class="skills-grid">
-                    <div class="skill-item">
-                        <strong>🎨 Content Creation</strong><br>
-                        herosection, email-conversion-engine, salescopy-skill, salespage-skill, vsl-skill
-                    </div>
-                    <div class="skill-item">
-                        <strong>🤖 AI Assistants</strong><br>
-                        claude-assistant, openai-assistant, anthropic-assistant, gemini-assistant, elevenlabs-voice
-                    </div>
-                    <div class="skill-item">
-                        <strong>💼 Business Tools</strong><br>
-                        coursesprout, mintbird, page-sprout, global-control, stripe/square/paypal-payments
-                    </div>
-                    <div class="skill-item">
-                        <strong>🔧 Productivity</strong><br>
-                        github-repos, telegram-bot, vercel-deploy, trello-boards, trello-productivity
-                    </div>
-                    <div class="skill-item">
-                        <strong>📧 Communication</strong><br>
-                        gmail-inbox, google-forms, zoom-meetings, outlook-calendar
-                    </div>
-                    <div class="skill-item">
-                        <strong>🎥 Media</strong><br>
-                        youtube-video, youtube-manager, google-drive, google-calendar, figma-design
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- BOARDS TAB -->
-        <div id="boards" class="tab-content">
-            <div class="content-card">
-                <h2>📋 Your Trello Boards</h2>
-                <div class="link-list">
-                    <a href="https://trello.com/b/OH81R0Pq/openclaw-operator-kanban" target="_blank">
-                        🔧 OpenClaw Operator Kanban<br>
-                        <small>All your 35+ skills organized alphabetically</small>
-                    </a>
-                    <a href="https://trello.com/b/Llb2kt2N/30-day-openclaw-sales-sprint" target="_blank">
-                        🎬 30-Day Open Claw Journey<br>
-                        <small>Your day-by-day sprint tasks and content</small>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="content-card">
-                <h2>🔗 Quick Links</h2>
-                <div class="link-list">
-                    <a href="https://millamc.com" target="_blank">🌐 Your Website - millamc.com</a>
-                    <a href="https://github.com/MillaMcCammon/milla-workspace" target="_blank">📁 GitHub Repository</a>
-                </div>
-            </div>
-        </div>
-        
+    <!-- Today's Focus -->
+    <div class="section">
+      <h2>Today's Focus</h2>
+      <div class="focus">
+        <div class="focus-item"><span>Priority:</span> Draft Day 2 Journey Post</div>
+        <div class="focus-item"><span>Project:</span> 30-Day Digital Twin Journey</div>
+        <div class="focus-item"><span>Next Action:</span> Write Behind-the-Scenes Content</div>
+        <div class="focus-item"><span>Status:</span> On Track ✅</div>
+      </div>
     </div>
-    
-    <script>
-        function showTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName).classList.add('active');
-            event.target.closest('.nav-item').classList.add('active');
-        }
-        
-        function copyToClipboard(elementId) {
-            const text = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('✅ Copied to clipboard!');
-            });
-        }
-    </script>
+
+    <!-- Quick Actions -->
+    <div class="section grid actions">
+      <div class="action">➕ Add New Skill</div>
+      <div class="action">🗂️ Review Content</div>
+      <div class="action">📝 Log a Win</div>
+      <div class="action">🔗 Open Trello</div>
+      <div class="action">🌐 View Website</div>
+    </div>
+
+    <!-- Weekly Blocks -->
+    <div class="section grid" style="grid-template-columns:1fr;">
+      <div class="week">
+        <h3>Week 1: Foundation</h3>
+        <div class="week-item"><span>Objective:</span> Establish system and Day 1 launch</div>
+        <div class="week-item"><span>Status:</span> Day 1 posted, engagement recorded</div>
+        <div class="week-item"><span>Next Step:</span> Create Day 2 post</div>
+        <div class="week-item"><a href="#">Go to Day 1 details</a></div>
+      </div>
+      <div class="week">
+        <h3>Week 2: Content Machine</h3>
+        <div class="week-item"><span>Objective:</span> Build content workflow</div>
+        <div class="week-item"><span>Status:</span> Planning phase</div>
+        <div class="week-item"><span>Next Step:</span> Map content calendar</div>
+        <div class="week-item"><a href="#">Open Content Library</a></div>
+      </div>
+      <!-- Add Week 3 & 4 similarly -->
+    </div>
+
+    <!-- Recent Wins -->
+    <div class="section">
+      <h2>Recent Wins / Progress</h2>
+      <div class="wins">
+        <div class="win-item">🏆 First Sale on March 17</div>
+        <div class="win-item">✍️ Day 1 post engagement: 45 comments</div>
+        <div class="win-item">🔧 Added 35 skills</div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

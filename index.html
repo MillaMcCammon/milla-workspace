@@ -39,6 +39,14 @@
   </style>
 </head>
 <body>
+  <!-- Force fresh load by appending version param -->
+  <script>
+    const version = '9a09249';
+    if(!location.search.includes('v=' + version)) {
+      const base = location.href.split('?')[0];
+      location.replace(base + '?v=' + version);
+    }
+  </script>
   <aside class="sidebar">
     <h1>🎯 Milla’s Digital Twin Command Center</h1><small>Dark Mode Hub</small>
     <div class="nav-group"><h4>Main</h4>

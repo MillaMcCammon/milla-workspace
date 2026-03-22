@@ -8,7 +8,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Milla’s Digital Twin Command Center</title>
   <style>
-    :root { --bg: #0b0b0f; --panel: #1e1e27; --text: #e0e0e3; --subtext: #a3a3a8; --primary-glow: #b04eff; --secondary-glow: #4dbaff; }
+    .log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--panel);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+  border: 1px solid rgba(75,219,255,0.10);
+}
+
+.log-item {
+  color: var(--text);
+  background: rgba(255,255,255,0.02);
+  padding: 12px 14px;
+  border-radius: 6px;
+}:root { --bg: #0b0b0f; --panel: #1e1e27; --text: #e0e0e3; --subtext: #a3a3a8; --primary-glow: #b04eff; --secondary-glow: #4dbaff; }
     *{margin:0;padding:0;box-sizing:border-box}
     body{display:flex;height:100vh;background:var(--bg);color:var(--text);font-family:'Segoe UI',sans-serif;}
     a{color:inherit;text-decoration:none;}
@@ -23,12 +39,17 @@
     .nav-item:hover{background:rgba(255,255,255,0.05);box-shadow:0 0 8px var(--secondary-glow);}
     .nav-item.active{background:rgba(176,78,255,0.2);box-shadow:0 0 12px var(--primary-glow);}
     /* MAIN */
-    .main{flex:1;overflow-y:auto;padding:24px;padding-left:0;max-width:none;margin:0; margin-left:264px;}
+   .main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 48px 32px 48px 0;
+  margin: 0;
+  margin-left: 288px;
+}
     .section{margin-bottom:32px;display:none;}
     .section.active{display:block;}
     h2{font-size:1.5em;color:#fff;margin-bottom:12px;position:relative;}
-    h2::before{content:'';position:absolute;left:0;top:50%;width:4px;height:1.2em;background:var(--primary-glow);transform:translateY(-50%);box-shadow:0 0 10px var(--primary-glow);}
-    .grid{display:grid;gap:20px;}
+        .grid{display:grid;gap:20px;}
     /* Stats */.stats{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
     .stat{background:var(--panel);border-radius:8px;padding:20px;text-align:center;box-shadow:0 0 12px rgba(0,0,0,0.7),0 0 8px var(--secondary-glow);}
     .stat .num{font-size:2em;font-weight:bold;color:#fff;text-shadow:0 0 6px var(--primary-glow);} .stat .label{margin-top:6px;color:var(--subtext);}
@@ -97,7 +118,35 @@
         <div class="win"><div class="icon">🔧</div><div class="desc">35 Skills</div></div>
         <div class="win"><div class="icon">🚀</div><div class="desc">Board Ready</div></div>
         <div class="win"><div class="icon">🔓</div><div class="desc">Agency Dashboard Access</div></div>
-      </div>
+      </div><section id="completed-work">
+  <h2>Today’s Completed Work</h2>
+  <div class="log-list">
+    <div class="log-item">Constrained the dashboard layout and improved left alignment</div>
+    <div class="log-item">Added dark mode command center styling</div>
+    <div class="log-item">Created quick actions and wins modules</div>
+    <div class="log-item">Verified the live GitHub Pages source file</div>
+  </div>
+</section>
+
+<section id="tomorrow-priorities">
+  <h2>Tomorrow’s Priorities</h2>
+  <div class="log-list">
+    <div class="log-item">Refine command center spacing and section hierarchy</div>
+    <div class="log-item">Add real daily activity feed content</div>
+    <div class="log-item">Scaffold project tracking for TechStack KC and Letterman</div>
+  </div>
+</section>
+
+<section id="projects-motion">
+  <h2>Projects in Motion</h2>
+  <div class="cards">
+    <div class="card"><h3>Digital Twin Journey</h3><div class="item">Status: Active</div><div class="item">Next: Draft Day 2 post</div></div>
+    <div class="card"><h3>TechStack KC</h3><div class="item">Status: Planning</div><div class="item">Next: Outline project structure</div></div>
+    <div class="card"><h3>Letterman</h3><div class="item">Status: Active</div><div class="item">Next: Review article workflow</div></div>
+    <div class="card"><h3>HighLevel</h3><div class="item">Status: Active</div><div class="item">Next: Continue skill validation</div></div>
+    <div class="card"><h3>OpenClaw Builds</h3><div class="item">Status: Active</div><div class="item">Next: Improve command center dashboard</div></div>
+  </div>
+</section>
     </section>
     <!-- Other sections hidden by default -->
     <section id="journey" class="section">
